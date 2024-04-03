@@ -40,7 +40,7 @@ private:
   int (*duration_function)(int wholenote, int duration) = nullptr;
 
 public:
-  bool begin(int pin, int notes[], int n_notes, int tempo, bool loop);
+  bool begin(int pin, int notes[], int n_notes, int tempo, bool loop, bool start = false);
   bool start(void);
   bool stop(void);
   void end(void);

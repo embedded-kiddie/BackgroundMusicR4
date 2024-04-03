@@ -19,7 +19,7 @@ CBTimer_t CBTimer;
 MusicScore_t BGMusic_t::score = { 0, 0, 0, 0, false };
 
 // Initialize music score sequencer
-bool BGMusic_t::begin(int pin, int notes[], int n_notes, int tempo, bool loop) {
+bool BGMusic_t::begin(int pin, int notes[], int n_notes, int tempo, bool loop, bool start) {
   debug_begin(9600);
 
   score.pin = pin;
@@ -29,7 +29,11 @@ bool BGMusic_t::begin(int pin, int notes[], int n_notes, int tempo, bool loop) {
   score.wholenote = (60000 * 4) / tempo;
   score.loop = loop;
 
-  return BGMusic.start();
+  if (start == true) {
+    return BGMusic.start();
+  } else {
+    return true;
+  }
 }
 
 // Instanciate the FspTimer and start it immediately
