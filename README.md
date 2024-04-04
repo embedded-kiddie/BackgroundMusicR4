@@ -119,7 +119,7 @@ duration = wholenote / duration;
 
 where `wholenote` is `(60000 * 4) / tempo`. You can use numbers to specify duration, such as `4` for a quarter note, `8` for an 8th note, and `16` for a 16th note.
 
-But this description can not be specify the **slur** that two or more notes are played in succession.
+But this description can not be specify the [**tie**](https://en.wikipedia.org/wiki/Tie_(music) "Tie (music) - Wikipedia") that two or more same notes are played in succession.
 
 As an alternative, you can define some symbols as follows:
 
@@ -156,4 +156,4 @@ void setup() {
 }
 ```
 
-Then, you can specify a slur like "quarter note" + "8th note" as `N4 + N8` :+1:
+Then, you can specify a "tie" like "quarter note" + "8th note" as `N4 + N8` :+1:
