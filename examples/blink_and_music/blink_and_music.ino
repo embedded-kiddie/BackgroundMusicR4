@@ -19,7 +19,7 @@ static int melody[] = {
 
 void setup() {
   // pin number connected to the buzzer
-  int buzzer_pin = 11;
+  int buzzer_pin = 9;
 
   // calculate the number of pitch and duration pairs.
   int notes = sizeof(melody) / sizeof(melody[0]) / 2;
