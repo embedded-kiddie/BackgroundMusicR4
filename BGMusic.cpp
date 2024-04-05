@@ -38,7 +38,7 @@ bool BGMusic_t::begin(int pin, int notes[], int n_notes, int tempo, bool loop, b
 
 // Instanciate the FspTimer and start it immediately
 bool BGMusic_t::start(void) {
-  if (CBTimer.begin(CBTIMER_START_NOW, music_callback) == true) {
+  if (CBTimer.begin(TIMER_MODE_ONE_SHOT, CBTIMER_START_NOW, music_callback) == true) {
     return CBTimer.start();
   } else {
     return false;
