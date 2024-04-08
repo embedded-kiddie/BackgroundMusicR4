@@ -6,6 +6,12 @@
   This software is released under the MIT License.
   http://opensource.org/licenses/mit-license.php
 */
+#if 0
+#define debug_begin(...)  { Serial.begin(__VA_ARGS__); while(!Serial); }
+#define debug_print(...)    Serial.print(__VA_ARGS__)
+#define debug_println(...)  Serial.println(__VA_ARGS__)
+#endif
+
 #include "BGMusic.h"
 
 // Duration between notes.

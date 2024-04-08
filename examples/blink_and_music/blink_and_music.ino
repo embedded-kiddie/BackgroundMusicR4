@@ -17,25 +17,18 @@ static int melody[] = {
 #include "Greensleeves.h"
 };
 
+#define BUZZER_PIN  9     // pin number connected to the buzzer
+#define TEMPO       70    // change this to make the song slower or faster
+#define REPEAT      true  // playback repeatedly
+#define N_NOTES(s)  (sizeof(s) / sizeof((s)[0]) / 2)  // number of notes in musical score.
+
 void setup() {
-  // pin number connected to the buzzer
-  int buzzer_pin = 9;
-
-  // calculate the number of pitch and duration pairs.
-  int notes = sizeof(melody) / sizeof(melody[0]) / 2;
-
-  // change this to make the song slower or faster
-  int tempo = 70;
-
-  // playback repeatedly
-  int repeat = true;
-
   // initialize digital pin LED_BUILTIN as an output.
-  pinMode(buzzer_pin,  OUTPUT);
+  pinMode(BUZZER_PIN,  OUTPUT);
   pinMode(LED_BUILTIN, OUTPUT);
 
   // initialize and start the BGM player
-  BGMusic.begin(buzzer_pin, melody, notes, tempo, repeat);
+  BGMusic.begin(BUZZER_PIN, melody, N_NOTES(melody), TEMPO, REPEAT);
   BGMusic.start();
 }
 
