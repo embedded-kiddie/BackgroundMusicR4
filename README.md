@@ -55,25 +55,26 @@ Using this BGMplay library, you can add something to do inside `loop()` like thi
 #include "Arduino.h"
 #include "BGMplay.h"
 
-// notes (pair of pitch and duration) in the melody.
+// notes (pairs of pitch and duration) in musical score.
 // duration: 4 = quarter note, 8 = eighth note, etc.
 #include "pitches.h"
-static int melody[] = {
+static int score[] = {
   NOTE_C4, 4, NOTE_G3, 8, NOTE_G3, 8, NOTE_A3, 4, NOTE_G3, 4, REST, 4, NOTE_B3, 4, NOTE_C4, 4
 };
 
-void setup() {
-  int buzzer_pin = 11;  // pin number connected to the buzzer.
-  int notes = sizeof(melody) / sizeof(melody[0]) / 2; // number of notes (pair of pitch and duration).
-  int tempo = 140;      // change this to make the song slower or faster
-  int repeat = true;    // playback repeatedly
+// Parameters for BGMPlay.begin()
+#define BUZZER_PIN  11    // pin number connected to the buzzer.
+#define TEMPO       140   // change this to make the song slower or faster.
+#define REPEAT      true  // playback repeatedly
+#define N_NOTES(s)  (sizeof(s) / sizeof((s)[0]) / 2)  // number of notes in musical score.
 
+void setup() {
   // initialize digital pin LED_BUILTIN as an output.
-  pinMode(buzzer_pin,  OUTPUT);
+  pinMode(BUZZER_PIN,  OUTPUT);
   pinMode(LED_BUILTIN, OUTPUT);
 
   // initialize and start BGM player
-  BGMplay.begin(buzzer_pin, melody, notes, tempo, repeat);
+  BGMplay.begin(BUZZER_PIN, score, N_NOTES(score), TEMPO, REPEAT);
   BGMplay.start();
 }
 
