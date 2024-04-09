@@ -46,14 +46,14 @@ void loop() {
 }
 ```
 
-Using this BGMplay library, you can add something to do inside `loop()` like this:
+Using this BGMusic library, you can add something to do inside `loop()` like this:
 
 ```C++
 /*
   Example of music score player in background
 */
 #include "Arduino.h"
-#include "BGMplay.h"
+#include "BGMusic.h"
 
 // notes (pairs of pitch and duration) in musical score.
 // duration: 4 = quarter note, 8 = eighth note, etc.
@@ -62,7 +62,7 @@ static int score[] = {
   NOTE_C4, 4, NOTE_G3, 8, NOTE_G3, 8, NOTE_A3, 4, NOTE_G3, 4, REST, 4, NOTE_B3, 4, NOTE_C4, 4
 };
 
-// Parameters for BGMPlay.begin()
+// parameters for begin()
 #define BUZZER_PIN  11    // pin number connected to the buzzer.
 #define TEMPO       140   // change this to make the song slower or faster.
 #define REPEAT      true  // playback repeatedly
@@ -74,8 +74,9 @@ void setup() {
   pinMode(LED_BUILTIN, OUTPUT);
 
   // initialize and start BGM player
-  BGMplay.begin(BUZZER_PIN, score, N_NOTES(score), TEMPO, REPEAT);
-  BGMplay.start();
+  static BGMusic music;
+  music.begin(BUZZER_PIN, score, N_NOTES(score), TEMPO, REPEAT);
+  music.start();
 }
 
 void loop() {
@@ -150,9 +151,10 @@ int calc_duration(int wholenote, int duration) {
 void setup() {
   ...
   // initialize and start the BGM player
-  BGMusic.set_duration_function(calc_duration);
-  BGMusic.begin(buzzer_pin, melody, notes, tempo, repeat);
-  BGMusic.start();
+  static BGMusic music;
+  music.set_duration_function(calc_duration);
+  music.begin(buzzer_pin, melody, notes, tempo, repeat);
+  music.start();
   ...
 }
 ```

@@ -26,9 +26,9 @@
 // Music score
 typedef struct {
   int pin;
-  int *notes;
-  int *notes_bigin;
-  int *notes_end;
+  const int *notes;
+  const int *notes_bigin;
+  const int *notes_end;
   int wholenote;
   int loop;
 } MusicScore_t;
@@ -40,7 +40,9 @@ private:
   static int (*duration_function)(int wholenote, int duration);
 
 public:
-  bool begin(int pin, int notes[], int n_notes, int tempo, bool loop, bool start = false);
+  BGMusic();
+  ~BGMusic();
+  bool begin(int pin, const int notes[], int n_notes, int tempo, bool loop, bool start = false);
   static bool start(void);
   static bool stop(void);
   void end(void);

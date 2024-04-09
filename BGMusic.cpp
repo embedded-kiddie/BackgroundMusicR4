@@ -24,8 +24,14 @@ static CBTimer cbtimer;
 MusicScore_t BGMusic::score = { 0, 0, 0, 0, false };
 int (*BGMusic::duration_function)(int wholenote, int duration) = nullptr;
 
+// Constructor / Destructor
+BGMusic::BGMusic() {}
+BGMusic::~BGMusic() {
+  end();
+}
+
 // Initialize music score sequencer
-bool BGMusic::begin(int pin, int notes[], int n_notes, int tempo, bool loop, bool start) {
+bool BGMusic::begin(int pin, const int notes[], int n_notes, int tempo, bool loop, bool start) {
   debug_begin(9600);
 
   score.pin = pin;
