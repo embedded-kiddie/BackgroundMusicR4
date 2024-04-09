@@ -18,14 +18,14 @@
 #define BREATH 10
 
 // Instance of Music score player in background
-BGMusic_t BGMusic;
-CBTimer_t CBTimer;
+static CBTimer cbtimer;
 
 // Initialize static data menbers
-MusicScore_t BGMusic_t::score = { 0, 0, 0, 0, false };
+MusicScore_t BGMusic::score = { 0, 0, 0, 0, false };
+int (*BGMusic::duration_function)(int wholenote, int duration) = nullptr;
 
 // Initialize music score sequencer
-bool BGMusic_t::begin(int pin, int notes[], int n_notes, int tempo, bool loop, bool start) {
+bool BGMusic::begin(int pin, int notes[], int n_notes, int tempo, bool loop, bool start) {
   debug_begin(9600);
 
   score.pin = pin;
@@ -36,35 +36,35 @@ bool BGMusic_t::begin(int pin, int notes[], int n_notes, int tempo, bool loop, b
   score.loop = loop;
 
   if (start == true) {
-    return BGMusic.start();
+    return BGMusic::start();
   } else {
     return true;
   }
 }
 
 // Instanciate the FspTimer and start it immediately
-bool BGMusic_t::start(void) {
-  if (CBTimer.begin(TIMER_MODE_ONE_SHOT, CBTIMER_START_NOW, music_callback) == true) {
-    return CBTimer.start();
+bool BGMusic::start(void) {
+  if (cbtimer.begin(TIMER_MODE_ONE_SHOT, CBTIMER_START_NOW, music_callback) == true) {
+    return cbtimer.start();
   } else {
     return false;
   }
 }
 
 // Stop playing
-bool BGMusic_t::stop(void) {
+bool BGMusic::stop(void) {
   noTone(score.pin);
-  return CBTimer.stop();
+  return cbtimer.stop();
 }
 
 // Delete the instanciate of FspTimer
-void BGMusic_t::end(void) {
-  CBTimer.end();
+void BGMusic::end(void) {
+  cbtimer.end();
 }
 
 // Play notes in music score sequentially
-void BGMusic_t::music_callback(void) {
-  BGMusic.stop();
+void BGMusic::music_callback(void) {
+  stop();
 
   if (score.notes < score.notes_end) {
     debug_print("note[0]  = "); debug_println(score.notes[0]);
@@ -74,7 +74,7 @@ void BGMusic_t::music_callback(void) {
     int duration = *score.notes++;
 
     // select the method of calculating duration
-    if (BGMusic.duration_function == nullptr) {
+    if (duration_function == nullptr) {
       // https://github.com/robsoncouto/arduino-songs
       duration = score.wholenote / duration;
 
@@ -86,7 +86,7 @@ void BGMusic_t::music_callback(void) {
 
     else {
       // you can select the original method
-      duration = BGMusic.duration_function(score.wholenote, duration);
+      duration = duration_function(score.wholenote, duration);
     }
 
     debug_print("duration = "); debug_println(duration);
@@ -94,12 +94,12 @@ void BGMusic_t::music_callback(void) {
     tone(score.pin, (unsigned int)note, (unsigned long)(duration * 0.9));
 
     // Instanciate the FspTimer and start it
-    CBTimer.begin(duration, music_callback);
+    cbtimer.begin(duration, music_callback);
   }
 
   // For repeated playback
   else if (score.loop) {
     score.notes = score.notes_bigin;
-    BGMusic.start();
+    start();
   }
 }

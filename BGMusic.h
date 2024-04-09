@@ -33,24 +33,21 @@ typedef struct {
   int loop;
 } MusicScore_t;
 
-class BGMusic_t {
+class BGMusic {
 private:
   static MusicScore_t score;
   static void music_callback(void);
-  int (*duration_function)(int wholenote, int duration) = nullptr;
+  static int (*duration_function)(int wholenote, int duration);
 
 public:
   bool begin(int pin, int notes[], int n_notes, int tempo, bool loop, bool start = false);
-  bool start(void);
-  bool stop(void);
+  static bool start(void);
+  static bool stop(void);
   void end(void);
 
   void set_duration_function(int (*calc_duration_function)(int wholenote, int duration)) {
     duration_function = calc_duration_function;
   }
 };
-
-extern BGMusic_t BGMusic;
-extern CBTimer_t CBTimer;
 
 #endif

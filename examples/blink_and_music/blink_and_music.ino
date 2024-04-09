@@ -28,8 +28,9 @@ void setup() {
   pinMode(LED_BUILTIN, OUTPUT);
 
   // initialize and start the BGM player
-  BGMusic.begin(BUZZER_PIN, melody, N_NOTES(melody), TEMPO, REPEAT);
-  BGMusic.start();
+  BGMusic music;
+  music.begin(BUZZER_PIN, melody, N_NOTES(melody), TEMPO, REPEAT);
+  music.start();
 }
 
 void loop() {
