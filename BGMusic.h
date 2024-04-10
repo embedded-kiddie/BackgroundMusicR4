@@ -42,7 +42,7 @@ private:
 public:
   BGMusic();
   ~BGMusic();
-  bool begin(int pin, const int notes[], int n_notes, int tempo, bool loop, bool start = false);
+  bool begin(int pin, const int notes[], int n_notes, int tempo, bool loop = false, bool start = false);
   static bool start(void);
   static bool stop(void);
   void end(void);
