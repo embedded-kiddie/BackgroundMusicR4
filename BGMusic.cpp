@@ -22,7 +22,7 @@ static CBTimer cbtimer;
 
 // Initialize static data menbers
 MusicScore_t BGMusic::score = { 0, 0, 0, 0, false };
-int (*BGMusic::duration_function)(int wholenote, int duration) = nullptr;
+int (*BGMusic::duration_function)(int duration) = nullptr;
 
 // Constructor / Destructor
 BGMusic::BGMusic() {}
@@ -92,7 +92,7 @@ void BGMusic::music_callback(void) {
 
     else {
       // you can select the original method
-      duration = duration_function(score.wholenote, duration);
+      duration = duration_function(duration);
     }
 
     debug_print("duration = "); debug_println(duration);

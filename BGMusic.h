@@ -37,7 +37,7 @@ class BGMusic {
 private:
   static MusicScore_t score;
   static void music_callback(void);
-  static int (*duration_function)(int wholenote, int duration);
+  static int (*duration_function)(int duration);
 
 public:
   BGMusic();
@@ -47,7 +47,7 @@ public:
   static bool stop(void);
   void end(void);
 
-  void set_duration_function(int (*calc_duration_function)(int wholenote, int duration)) {
+  void set_duration_function(int (*calc_duration_function)(int duration)) {
     duration_function = calc_duration_function;
   }
 };

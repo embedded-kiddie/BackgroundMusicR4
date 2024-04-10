@@ -90,17 +90,19 @@ void loop() {
 
 ## API
 
-### bool begin(int pin, int notes[], int n_notes, int tempo, bool loop)
+### bool begin(int pin, const int notes[], int n_notes, int tempo, bool loop = false, bool start = false)
 
-- int pin ... the pin number connected to piezo buzzer or a speaker.
+- `int pin` ... the pin number connected to piezo buzzer or a speaker.
 
-- int notes[] ... An array of note that is a pair of pitch frequency and duration.
+- `const int notes[]` ... An array of musical notes made up of flat pairs of frequency and duration. (same format as in [arduino-songs](https://github.com/robsoncouto/arduino-songs "robsoncouto/arduino-songs") by [Robson Couto](https://github.com/robsoncouto "robsoncouto (Robson Couto)"))
 
-- int n_notes ... Number of notes in the array. This is half the number of elements in the array.
+- `int n_notes` ... Number of notes in the array. This is half the number of elements in the array.
 
-- int tempo ... The metronome number. For example, `60` means **60 quarter-note beats per minute**.
+- `int tempo` ... The metronome number. For example, `60` means **60 quarter-note beats per minute**.
 
-- bool loop ... If `true`, play repeatedly.
+- `bool loop` ... When `true`, play repeatedly.
+
+- `bool start` ... When `true`, play immediately. 
 
 ### bool start(void)
 Start playing after calling the "begin" method.
@@ -111,7 +113,7 @@ Stop playing.
 ### void end(void)
 Calling this method followed by `stop()` will release the timer resource.
 
-### void set_duration_function(int (*calc_duration_function)(int wholenote, int duration))
+### void set_duration_function(int (*calc_duration_function)(int duration))
 
 Register a function to calculate the duration of `tone()`. The default calculating method is as follows:
 
@@ -143,9 +145,12 @@ As an alternative, you can define some symbols as follows:
 And register your function of calculating duration like this:
 
 ```C++
+#define TEMPO         155   // change this to make the song slower or faster
+#define QUARTER_NOTE  ((60000 / N4) / TEMPO)  // quarter note duration in milliseconds based on the number of beats in 60 second
+
 // Calculate note length from note length symbol
 int calc_duration(int wholenote, int duration) {
-  return (wholenote  / 16) * duration;
+  return QUARTER_NOTE * duration;
 }
 ...
 void setup() {
