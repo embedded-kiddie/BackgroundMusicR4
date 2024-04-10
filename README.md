@@ -149,7 +149,7 @@ And register your function of calculating duration like this:
 #define QUARTER_NOTE  ((60000 / N4) / TEMPO)  // quarter note duration in milliseconds based on the number of beats in 60 second
 
 // Calculate note length from note length symbol
-int calc_duration(int wholenote, int duration) {
+int calc_duration(int duration) {
   return QUARTER_NOTE * duration;
 }
 ...
