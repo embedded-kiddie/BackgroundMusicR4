@@ -178,4 +178,4 @@ void setup() {
 }
 ```
 
-By this method, you can specify a "tie" like "quarter note" + "8th note" as `N4 + N8` :+1:
+By this method, you can specify a "tie" like "quarter note" + "8th note" as `N4 + N8` Check the sample at [background_music](https://github.com/embedded-kiddie/arduino-uno/tree/main/background_music "arduino-uno/background_music at main · embedded-kiddie/arduino-uno") :+1:
