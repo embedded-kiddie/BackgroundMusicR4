@@ -1,10 +1,10 @@
 # Arduino background music player with tone using CallbackTimerR4 library.
 
-This library allows you to play background music by `tone()` while letting Arduino do something.
+This library allows you to play background music by `tone()` while letting **Arduino UNO R4 Minima/WiFi** do something.
 
 ## Usage
 
-A typical example that uses tone() to play notes is as follows. In this program, you cannot do anything inside `loop()` until the melody finishes playing.
+A typical example that uses tone() to play notes is as follows. In this program, you cannot do anything inside `loop()` until the melody finishes playing due to the blocking function `delay()`.
 
 ```C++
 /*
@@ -88,6 +88,9 @@ void loop() {
 }
 ```
 
+## Dependency
+[CallbackTimerR4](https://github.com/embedded-kiddie/CallbackTimerR4 "embedded-kiddie/CallbackTimerR4: Arduino UNO R4 timer library using FspTimer class.") >= 1.0.0
+
 ## API
 
 ### bool begin(int pin, const int notes[], int n_notes, int tempo, bool loop = false, bool start = false)
@@ -121,11 +124,22 @@ Register a function to calculate the duration of `tone()`. The default calculati
 duration = wholenote / duration;
 ```
 
-where `wholenote` is `(60000 * 4) / tempo`. You can use numbers to specify duration, such as `4` for a quarter note, `8` for an 8th note, and `16` for a 16th note.
+where `wholenote` is `(60000 * 4) / tempo`. You can use numbers to specify duration, such as `4` for a quarter note, `8` for an 8th note, and `16` for a 16th note like this:
+
+| Nth note | 16th     | 8th     |quarter  | half    | whole  | 
+|:-------- |:--------:|:-------:|:-------:|:-------:|:------:|
+| duration | 16       | 8       | 4       | 2       | 1      |
 
 But this description can not be specify the [**tie**](https://en.wikipedia.org/wiki/Tie_(music) "Tie (music) - Wikipedia") that two or more same notes are played in succession.
 
 As an alternative, you can define some symbols as follows:
+
+| Nth note | 16th     | 8th     |quarter  | half    | whole  | 
+|:-------- |:--------:|:-------:|:-------:|:-------:|:------:|
+| duration | 1        | 2       | 4       | 8       | 16     |
+| symbol   | N16      | N8      | N4      | N2      | N1     |
+
+Then you can define the symbols like this:
 
 ```C++
 /*----------------------------------------------------------------------
@@ -164,4 +178,4 @@ void setup() {
 }
 ```
 
-Then, you can specify a "tie" like "quarter note" + "8th note" as `N4 + N8` :+1:
+By this method, you can specify a "tie" like "quarter note" + "8th note" as `N4 + N8` :+1:
