@@ -1,4 +1,4 @@
-# Arduino background music player with tone using CallbackTimerR4 library.
+# Background music player using the tone() function for Arduino UNO Minima/WiFi.
 
 This library allows you to play background music by `tone()` while letting **Arduino UNO R4 Minima/WiFi** do something.
 
