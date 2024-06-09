@@ -179,3 +179,6 @@ void setup() {
 ```
 
 By this method, you can specify a "tie" like "quarter note" + "8th note" as `N4 + N8`. Check the sample at [background_music](https://github.com/embedded-kiddie/arduino-uno/tree/main/background_music "arduino-uno/background_music at main · embedded-kiddie/arduino-uno") :+1:
+
+## Blog post
+- [Introducing the background music playback library for Arduino UNO R4](https://embedded--kiddie-github-io.translate.goog/2024/04/12/background-tone-player.html?_x_tr_sl=ja&_x_tr_tl=en&_x_tr_hl=ja&_x_tr_pto=wapp "Introducing the background music playback library for Arduino UNO R4 - Embedded Kiddie")
